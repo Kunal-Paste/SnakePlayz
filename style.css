@@ -1,0 +1,88 @@
+:root {
+  /* background colors */
+  --background-main-color: rgb(239, 216, 10);
+
+  /* background-padding */
+  --box-padding-sm: 20px;
+  --box-padding-md: 40px;
+  --box-padding-lg: 60px;
+  --box-padding-xl: 80px;
+  --box-padding-2xl: 100px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.game-box {
+  height: 100%;
+  width: 100%;
+  background-color: var(--background-main-color);
+  padding: var(--box-padding-md);
+}
+
+.main {
+  border: 5px solid #000;
+  height: 89vh;
+  display: flex;
+  flex-direction: column;
+  padding: var(--box-padding-sm);
+}
+
+.score-card {
+  display: flex;
+  padding: var(--box-padding-sm);
+  gap: 28rem;
+  justify-content: center;
+}
+
+.high-score {
+  display: flex;
+  gap: 0.5rem;
+  border: 3px solid #000;
+  padding: 10px;
+  border-radius: 1rem;
+}
+
+.score {
+  display: flex;
+  gap: 0.5rem;
+  border: 3px solid #000;
+  padding: 10px;
+  border-radius: 1rem;
+}
+
+.time {
+  display: flex;
+  gap: 0.5rem;
+  border: 3px solid #000;
+  padding: 10px;
+  border-radius: 1rem;
+}
+
+.board {
+  border: 3px solid #000;
+  height: 80vh;
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(30px, 1fr));
+}
+
+.block {
+  width: 30px;
+  height: 30px;
+  border: .5px solid #000;
+}
+
+span {
+  font-size: 1.3rem;
+}
