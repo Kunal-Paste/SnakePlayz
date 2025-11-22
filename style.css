@@ -1,6 +1,7 @@
 :root {
   /* background colors */
   --background-main-color: rgb(239, 216, 10);
+  --background-fill-color: #ef1d0a;
 
   /* background-padding */
   --box-padding-sm: 20px;
@@ -86,4 +87,8 @@ body {
 
 span {
   font-size: 1.3rem;
+}
+
+.fill{
+  background-color: var(--background-fill-color);
 }
