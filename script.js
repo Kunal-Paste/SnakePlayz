@@ -21,7 +21,8 @@ const snake = [
   },
 ];
 
-let direction = ["left", "right", "down", "up"];
+let direction = "right";
+let intervalId = null;
 
 for (let row = 0; row < rows; row++) {
   for (let col = 0; col < cols; col++) {
@@ -39,7 +40,7 @@ function render() {
   });
 }
 
-setInterval(() => {
+intervalId = setInterval(() => {
   let head = null;
   if (direction.includes("left")) {
     head = { x: snake[0].x, y: snake[0].y - 1 };
@@ -51,6 +52,11 @@ setInterval(() => {
     head = { x: snake[0].x - 1, y: snake[0].y };
   }
 
+  if (head.x < 0 || head.x >= rows || head.y < 0 || head.y >= cols) {
+    // alert("Game Over");
+    clearInterval(intervalId);
+  }
+
   snake.forEach((segment) => {
     blocks[`${segment.x}-${segment.y}`].classList.remove("fill");
   });
@@ -58,3 +64,16 @@ setInterval(() => {
   snake.pop();
   render();
 }, 500);
+
+addEventListener("keydown", (event) => {
+  if (event.key == "ArrowUp") {
+    direction = "up";
+  } else if (event.key == "ArrowDown") {
+    // error by u : use = for not == direction cuz we are assigning value to it
+    direction = "down";
+  } else if (event.key == "ArrowLeft") {
+    direction = "left";
+  } else if (event.key == "ArrowRight") {
+    direction = "right";
+  }
+});
