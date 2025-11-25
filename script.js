@@ -20,6 +20,10 @@ const snake = [
     y: 5,
   },
 ];
+let food = {
+  x: Math.floor(Math.random() * rows),
+  y: Math.floor(Math.random() * cols),
+};
 
 let direction = "right";
 let intervalId = null;
@@ -35,13 +39,10 @@ for (let row = 0; row < rows; row++) {
 }
 
 function render() {
-  snake.forEach((segment) => {
-    blocks[`${segment.x}-${segment.y}`].classList.add("fill");
-  });
-}
-
-intervalId = setInterval(() => {
   let head = null;
+
+  blocks[`${food.x}-${food.y}`].classList.add("food");
+
   if (direction.includes("left")) {
     head = { x: snake[0].x, y: snake[0].y - 1 };
   } else if (direction.includes("right")) {
@@ -57,11 +58,28 @@ intervalId = setInterval(() => {
     clearInterval(intervalId);
   }
 
+  if (head.x == food.x && head.y == food.y) {
+    blocks[`${food.x}-${food.y}`].classList.remove("food");
+    food = {
+      x: Math.floor(Math.random() * rows), // error by u : dont make food const it was causing the problem make it let
+      y: Math.floor(Math.random() * cols),
+    };
+    blocks[`${food.x}-${food.y}`].classList.add("food");
+    snake.unshift(head);
+  }
+
   snake.forEach((segment) => {
     blocks[`${segment.x}-${segment.y}`].classList.remove("fill");
   });
   snake.unshift(head);
   snake.pop();
+
+  snake.forEach((segment) => {
+    blocks[`${segment.x}-${segment.y}`].classList.add("fill");
+  });
+}
+
+intervalId = setInterval(() => {
   render();
 }, 500);
 

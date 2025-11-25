@@ -2,6 +2,7 @@
   /* background colors */
   --background-main-color: rgb(239, 216, 10);
   --background-fill-color: #ef1d0a;
+  --background-food-color: rgb(54, 12, 139);
 
   /* background-padding */
   --box-padding-sm: 20px;
@@ -91,4 +92,8 @@ span {
 
 .fill{
   background-color: var(--background-fill-color);
+}
+
+.food{
+  background-color: var(--background-food-color);
 }
