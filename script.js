@@ -1,4 +1,6 @@
 const board = document.querySelector(".board");
+const startbutton = document.querySelector(".btn");
+const modal = document.querySelector(".modal");
 const blockHeight = 30;
 const blockWidth = 30;
 
@@ -55,6 +57,7 @@ function render() {
 
   if (head.x < 0 || head.x >= rows || head.y < 0 || head.y >= cols) {
     // alert("Game Over");
+    // modal.style.display = "block";  this method is wrong
     clearInterval(intervalId);
   }
 
@@ -79,9 +82,9 @@ function render() {
   });
 }
 
-intervalId = setInterval(() => {
-  render();
-}, 500);
+// intervalId = setInterval(() => {
+//   render();
+// }, 500);
 
 addEventListener("keydown", (event) => {
   if (event.key == "ArrowUp") {
@@ -94,4 +97,12 @@ addEventListener("keydown", (event) => {
   } else if (event.key == "ArrowRight") {
     direction = "right";
   }
+});
+
+startbutton.addEventListener("click", () => {
+  intervalId = setInterval(() => {
+    render();
+  }, 300);
+  console.log("ok");
+  modal.style.display = "none";
 });
