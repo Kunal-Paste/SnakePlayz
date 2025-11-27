@@ -1,6 +1,8 @@
 const board = document.querySelector(".board");
 const startbutton = document.querySelector(".btn");
 const modal = document.querySelector(".modal");
+const startGame = document.querySelector(".menu");
+const gameOver = document.querySelector(".game-over");
 const blockHeight = 30;
 const blockWidth = 30;
 
@@ -58,6 +60,9 @@ function render() {
   if (head.x < 0 || head.x >= rows || head.y < 0 || head.y >= cols) {
     // alert("Game Over");
     // modal.style.display = "block";  this method is wrong
+    modal.style.display = "flex";
+    startGame.style.display = "none";
+    gameOver.style.display = "flex";
     clearInterval(intervalId);
   }
 

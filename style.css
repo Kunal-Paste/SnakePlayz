@@ -104,13 +104,19 @@ span {
   width: 100vw;
   position: fixed;
   top: 0;
-  background-color: rgb(239, 216, 10);
-  backdrop-filter: blur(4px);
+  left: 0;
+  /* translucent background so backdrop-filter can show through */
+  background-color: rgba(239, 216, 10, 0.45);
+  /* vendor prefix for Safari / WebKit */
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(1px);
+  /* ensure the modal sits above the game content */
+  z-index: 9999;
   justify-content: center;
   align-items: center;
 }
 
-.menu game-over {
+.menu .game-over {
   display: flex;
   flex-direction: column;
   gap: 1rem;
