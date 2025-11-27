@@ -3,6 +3,7 @@ const startbutton = document.querySelector(".btn");
 const modal = document.querySelector(".modal");
 const startGame = document.querySelector(".menu");
 const gameOver = document.querySelector(".game-over");
+const restartbutton = document.querySelector(".btn-restart");
 const blockHeight = 30;
 const blockWidth = 30;
 
@@ -10,7 +11,7 @@ const rows = Math.floor(board.clientHeight / blockHeight);
 const cols = Math.floor(board.clientWidth / blockWidth);
 
 const blocks = [];
-const snake = [
+let snake = [
   {
     x: 1,
     y: 3,
@@ -87,6 +88,50 @@ function render() {
   });
 }
 
+function restart() {
+
+  // stop any running interval
+  clearInterval(intervalId);
+
+  // remove existing food and snake fills (guard if blocks missing)
+  if (blocks[`${food.x}-${food.y}`]) {
+    blocks[`${food.x}-${food.y}`].classList.remove("food");
+  }
+  snake.forEach((segment) => {
+    const key = `${segment.x}-${segment.y}`;
+    if (blocks[key]) blocks[key].classList.remove("fill");
+  });
+
+  // hide modal/game-over and prepare to play
+  modal.style.display = "none";
+  gameOver.style.display = "none";
+  startGame.style.display = "none";
+
+  // reset game state
+  direction = "right";
+  snake = [
+    { x: 1, y: 3 },
+    { x: 1, y: 4 },
+    { x: 1, y: 5 },
+  ];
+
+  food = {
+    x: Math.floor(Math.random() * rows),
+    y: Math.floor(Math.random() * cols),
+  };
+
+  // ensure the food cell is marked before rendering loop starts
+  if (blocks[`${food.x}-${food.y}`]) {
+    blocks[`${food.x}-${food.y}`].classList.add("food");
+  }
+
+  // start rendering loop
+  intervalId = setInterval(() => {
+    render();
+  }, 300);
+
+}
+
 // intervalId = setInterval(() => {
 //   render();
 // }, 500);
@@ -108,6 +153,8 @@ startbutton.addEventListener("click", () => {
   intervalId = setInterval(() => {
     render();
   }, 300);
-  console.log("ok");
+  // console.log("ok");
   modal.style.display = "none";
 });
+
+restartbutton.addEventListener("click",restart);
