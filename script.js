@@ -43,13 +43,14 @@ let food = {
 
 let direction = "right";
 let intervalId = null;
+let timeInterval = null;
 
 for (let row = 0; row < rows; row++) {
   for (let col = 0; col < cols; col++) {
     const block = document.createElement("div");
     block.classList.add("block");
     board.appendChild(block);
-    block.innerText = `${row}${col}`;
+    // block.innerText = `${row}${col}`;
     blocks[`${row}-${col}`] = block;
   }
 }
@@ -182,6 +183,22 @@ startbutton.addEventListener("click", () => {
     render();
   }, 300);
   // console.log("ok");
+
+  timeInterval = setInterval(()=>{
+     
+    let [min,sec] = time.split(":").map(Number);
+    if(sec === 59){
+      min+=1
+      sec=0;
+    }else{
+      sec++;
+    }
+
+    time=`${min}:${sec}`;
+    timeElement.innerHTML = time;
+
+  },1000)
+
   modal.style.display = "none";
 });
 
