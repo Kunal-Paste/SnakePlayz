@@ -4,8 +4,19 @@ const modal = document.querySelector(".modal");
 const startGame = document.querySelector(".menu");
 const gameOver = document.querySelector(".game-over");
 const restartbutton = document.querySelector(".btn-restart");
+const highscoreElement = document.querySelector("#highscore");
+const scoreElement = document.querySelector("#score");
+const timeElement = document.querySelector("#time");
+
+
 const blockHeight = 30;
 const blockWidth = 30;
+
+let highscore = localStorage.getItem("highscore") || 0;
+let score = 0;
+let time = `00:00`
+
+highscoreElement.innerHTML = highscore;
 
 const rows = Math.floor(board.clientHeight / blockHeight);
 const cols = Math.floor(board.clientWidth / blockWidth);
@@ -75,6 +86,15 @@ function render() {
     };
     blocks[`${food.x}-${food.y}`].classList.add("food");
     snake.unshift(head);
+
+    score += 10;
+    scoreElement.innerHTML = score;
+
+    if(score>highscore){
+      highscore = score;
+      localStorage.setItem("highscore",highscore.toString());
+    }
+
   }
 
   snake.forEach((segment) => {
@@ -101,6 +121,14 @@ function restart() {
     const key = `${segment.x}-${segment.y}`;
     if (blocks[key]) blocks[key].classList.remove("fill");
   });
+
+  score = 0;
+  time = `00:00`
+
+  scoreElement.innerHTML = score;
+  highscoreElement.innerHTML = highscore;
+  timeElement.innerHTML = time;
+
 
   // hide modal/game-over and prepare to play
   modal.style.display = "none";
